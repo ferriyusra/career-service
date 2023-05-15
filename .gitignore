@@ -3,6 +3,10 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# dotenv environment variable files
+.env
+.env.local
+
 # Node artifact files
 node_modules/
 dist/
@@ -15,6 +19,11 @@ dist/
 
 # Log files
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
 # Package files
 *.jar
@@ -48,3 +57,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Optional npm cache directory
+.npm
+
+# TypeScript cache
+*.tsbuildinfo
