@@ -85,7 +85,6 @@ class JobRepository {
 										WHERE j.id=$1 AND j.deleted_at IS NULL`;
 
 		const value = [id];
-		console.log(sql)
 
 		const response = await this.db.query(sql, value);
 
