@@ -1,4 +1,5 @@
 module.exports = Object.freeze({
+  JOB_NOT_FOUND: 'Job not found',
   EMAIL_NOT_VALID: 'Email not valid',
   COMPANY_ALREADY_REGISTERED: 'Company already registered',
   INVALID_FILE: 'Format File Invalid',

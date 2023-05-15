@@ -96,23 +96,40 @@ class JobRepository {
 	}
 
 	async updateJob(id, data) {
-		let sql = 'UPDATE jobs SET updated_at = NOW(),';
+		const updateData = { ...data };
+
+		let sql = 'UPDATE jobs SET updated_at = NOW()';
 		const values = [];
 		let counter = 1;
 
-		Object.keys(data).forEach((key, index) => {
-			sql += ` ${camelToSnakeCase(key)} = $${index + 1},`;
-			values.push(data[key]);
+		// format period
+		if (updateData.periodFromAt && updateData.periodToAt) {
+			sql += `, period = $${counter}`;
+			values.push(`[${updateData.periodFromAt.toISOString()}, ${updateData.periodToAt.toISOString()}]`);
+			counter += 1;
+		}
+		delete updateData.periodFromAt;
+		delete updateData.periodToAt;
+
+		Object.keys(updateData).forEach((key, index) => {
+			sql += `, ${camelToSnakeCase(key)} = $${counter}`;
+			values.push(updateData[key]);
 			counter += 1;
 		});
 
-		sql = sql.slice(0, -1);
 		sql += ` WHERE id = $${counter}`;
-
 		values.push(id);
 
+		sql += `RETURNING
+						id, company_id, name,
+						lower(period) AS period_from_at,
+						upper(period) AS period_to_at,
+						description, salary, is_salary, job_type,
+						created_at, updated_at`;
+
+
 		const response = await this.db.query(sql, values);
-		return response.rowCount;
+		return toDto(response.rows[0]);
 	}
 
 	async createJob(data) {

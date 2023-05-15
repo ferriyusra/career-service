@@ -23,6 +23,14 @@ class CompanyService {
 		}
 	}
 
+	async updateJob(id, data) {
+		try {
+			return this.repository.updateJob(id, data);
+		} catch (error) {
+			throw error;
+		}
+	}
+
 	async deletJob(id) {
 		try {
 			return await this.repository.updateJob(id, {

@@ -18,8 +18,9 @@ class CrmController extends EventEmitter {
   async listJobs(req, res, next) {
     try {
       const { query } = req;
+      const companyId = req.user.id;
 
-      const paging = getPaging(query, getJobSearchable());
+      const paging = getPaging({ ...query, companyId }, getJobSearchable());
 
       const jobs = await this.jobService.listJobs(paging);
 
@@ -73,6 +74,45 @@ class CrmController extends EventEmitter {
       });
 
       res.success(toJobContract(job));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateJob(req, res, next) {
+    try {
+      const { name, periodFromAt, periodToAt, description, salary, jobType, isSalary } = req.body;
+      const { id } = req.params;
+
+      // get job
+      const job = await this.jobService.getJob(id);
+      if (!job) throw createError(StatusCodes.NOT_FOUND, messageConstant.JOB_NOT_FOUND);
+
+      const periodFromAtOri = periodFromAt;
+      const periodToAtOri = periodToAt;
+
+      // check periodTo must be later than periodFrom
+      if (periodToAtOri < periodFromAtOri) {
+        throw new ValidationError(messageConstant.PERIODTO_MUST_LATER_PERIODFROM);
+      }
+
+      // update job
+      const periodFrom = DateTime.fromJSDate(periodFromAtOri).startOf('day').toJSDate();
+      const periodTo = DateTime.fromJSDate(periodToAtOri).endOf('day').toJSDate();
+      const updatedJob = await this.jobService.updateJob(
+        job.id,
+        {
+          name,
+          periodFromAt: periodFrom,
+          periodToAt: periodTo,
+          description,
+          salary,
+          isSalary,
+          jobType
+        }
+      );
+
+      res.success(toJobContract(updatedJob));
     } catch (error) {
       next(error);
     }

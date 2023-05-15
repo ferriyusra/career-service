@@ -1,5 +1,5 @@
 function getJobSearchable() {
-	return ['name'];
+	return ['name', 'companyId'];
 }
 
 module.exports = {

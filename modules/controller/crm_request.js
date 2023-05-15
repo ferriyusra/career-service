@@ -22,7 +22,13 @@ const createJobRules = () => [
 	body('salary').isInt().withMessage('Salary must be an integer value'),
 ];
 
+const updateJobRules = () => [
+	...getJobRules(),
+	...createJobRules()
+];
+
 module.exports = {
 	getJobRules,
 	createJobRules,
+	updateJobRules
 };

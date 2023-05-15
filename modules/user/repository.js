@@ -11,7 +11,6 @@ class UserRepository {
 		const sql = `SELECT id, name, email, image, password, is_company, password, company_description, location, created_at, updated_at FROM users WHERE name=$1 OR email=$2 AND is_company = TRUE AND deleted_at IS NULL`;
 
 		const value = [name, email];
-		console.log(sql)
 
 		const response = await this.db.query(sql, value);
 
