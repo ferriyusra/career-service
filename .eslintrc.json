@@ -1,0 +1,37 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "extends": ["eslint:recommended", "airbnb-base"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "plugins": ["jest"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "global-require": "off",
+    "indent": "off",
+    "max-len": "off",
+    "newline-per-chained-call": "off",
+    "no-console": "off",
+    "no-useless-catch": "off",
+    "no-use-before-define": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "operator-linebreak": "off",
+    "space-unary-ops": "off",
+    // jest
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  }
+}
