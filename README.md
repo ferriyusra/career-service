@@ -19,7 +19,7 @@ This project is developed with:
 Clone the project
 
 ```bash
-git clone <todo>
+git clone https://github.com/ferriyusra/career-service.git
 ```
 
 Go to the project directory
