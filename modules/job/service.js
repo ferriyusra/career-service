@@ -17,7 +17,6 @@ class CompanyService {
 
 	async createJob(data) {
 		try {
-			console.log(data)
 			return this.repository.createJob(data);
 		} catch (error) {
 			throw error;
