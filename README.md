@@ -4,8 +4,6 @@ This microservice serves API requests for Career Site.
 
 **Dependencies**:
 
-- EVO service: to push notification
-
 ## Documentation
 
 ## Requirements
