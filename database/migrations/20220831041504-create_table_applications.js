@@ -7,7 +7,7 @@ module.exports = {
         type: Sequelize.UUID,
       },
       job_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
       },
       first_name: {
         type: Sequelize.TEXT,
@@ -26,6 +26,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.TEXT,
+        defaultValue: 'proses',
       },
       created_at: {
         allowNull: false,
