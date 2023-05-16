@@ -125,9 +125,9 @@ class CrmController extends EventEmitter {
     try {
       const { id } = req.params;
 
-      await this.companyService.deleteJob(id);
+      const job = await this.jobService.deleteJob(id);
 
-      res.success({ success: true });
+      res.success({ job });
     } catch (error) {
       next(error);
     }

@@ -31,7 +31,7 @@ class CompanyService {
     }
   }
 
-  async deletJob(id) {
+  async deleteJob(id) {
     try {
       return await this.repository.updateJob(id, {
         deletedAt: new Date(),
