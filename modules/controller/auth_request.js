@@ -16,6 +16,7 @@ const createUserRules = () => [
     .notEmpty()
     .withMessage('password cannot be empty'),
   body('companyDescription').trim().notEmpty().withMessage('company description cannot be empty'),
+  body('location').trim().notEmpty().withMessage('company location cannot be empty'),
 ];
 
 const createLoginRules = () => [
@@ -36,5 +37,5 @@ const createLoginRules = () => [
 
 module.exports = {
   createUserRules,
-  createLoginRules
+  createLoginRules,
 };
