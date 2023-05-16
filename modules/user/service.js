@@ -11,6 +11,14 @@ class UserService {
     }
   }
 
+  async getCompanyById(id) {
+    try {
+      return this.repository.getCompanyById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getUserCompany(email) {
     try {
       return this.repository.getUserCompany(email);
@@ -22,6 +30,14 @@ class UserService {
   async createUser(data) {
     try {
       return this.repository.createUser(data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateUser(id, data) {
+    try {
+      return this.repository.updateUser(id, data);
     } catch (error) {
       throw error;
     }

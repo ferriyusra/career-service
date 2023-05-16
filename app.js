@@ -22,6 +22,7 @@ const {
   createCrmController,
   createAuthController,
   createCareerController,
+  createAccountController,
 
   createJobRepository,
   createUserRepository,
@@ -33,6 +34,7 @@ const {
 const crmRouter = require('./routes/crm');
 const authRouter = require('./routes/auth');
 const careerRouter = require('./routes/career');
+const accountRouter = require('./routes/account');
 
 express.response.success = successHandler;
 
@@ -92,6 +94,7 @@ async function main() {
   const crmController = createCrmController(jobService);
   const authController = createAuthController(userService);
   const careerController = createCareerController(jobService);
+  const accountController = createAccountController(userService);
 
   // init observers
   // require('./modules/controller/file_observer')(fileController);
@@ -101,6 +104,7 @@ async function main() {
   app.use('/crm', crmRouter(crmController));
   app.use('/crm', authRouter(authController));
   app.use('/career', careerRouter(careerController));
+  app.use('/account', accountRouter(accountController));
 
   app.get('/', (req, res) => {
     res.send(`${config.app.name} ${config.app.env} v${config.app.version}.`);
