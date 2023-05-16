@@ -32,7 +32,6 @@ class CareerController extends EventEmitter {
 
       // get job
       const job = await this.jobService.getJob(id);
-      if (!job) throw createError(StatusCodes.NOT_FOUND, messageConstant.JOB_NOT_FOUND);
 
       res.success(toJobContract(job));
     } catch (error) {
@@ -49,7 +48,7 @@ function toJobContract(data) {
     jobPeriodFrom: data.jobPeriodFrom,
     jobPeriodTo: data.jobPeriodTo,
     jobDescription: data.jobDescription,
-    jobSalary: parseInt(data.jobSalary),
+    jobSalary: parseInt(data.jobSalary, 10),
     jobIsSalary: data.jobIsSalary,
     jobType: data.jobType,
     companyName: data.companyName,

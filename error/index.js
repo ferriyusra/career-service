@@ -1,54 +1,54 @@
+// eslint-disable-next-line max-classes-per-file
 class RecordNotFoundError extends Error {
-	constructor() {
-		super('Record not found.');
-		this.name = this.constructor.name;
+  constructor() {
+    super('Record not found.');
+    this.name = this.constructor.name;
 
-		Error.captureStackTrace(this, this.constructor);
-	}
+    Error.captureStackTrace(this, this.constructor);
+  }
 
-	get statusCode() {
-		return 404;
-	}
+  get statusCode() {
+    return 404;
+  }
 }
 
 class DatabaseUniqueViolationError extends Error {
-	constructor() {
-		super('Unique violation error.');
-		this.name = this.constructor.name;
+  constructor() {
+    super('Unique violation error.');
+    this.name = this.constructor.name;
 
-		Error.captureStackTrace(this, this.constructor);
-	}
+    Error.captureStackTrace(this, this.constructor);
+  }
 
-	get statusCode() {
-		return 409;
-	}
+  get statusCode() {
+    return 409;
+  }
 }
 
 class CsvParsingError extends Error {
-	constructor(message) {
-		super();
-		this.name = this.constructor.name;
-		this.message = `CSV parsing error - ${message}`;
-	}
+  constructor(message) {
+    super();
+    this.name = this.constructor.name;
+    this.message = `CSV parsing error - ${message}`;
+  }
 
-	get statusCode() {
-		return 400;
-	}
+  get statusCode() {
+    return 400;
+  }
 }
 
 class ValidationError extends Error {
-	constructor(message = 'Validation error') {
-		super(message);
-		this.name = this.constructor.name;
+  constructor(message = 'Validation error') {
+    super(message);
+    this.name = this.constructor.name;
 
-		Error.captureStackTrace(this, this.constructor);
-	}
+    Error.captureStackTrace(this, this.constructor);
+  }
 }
 
-
 module.exports = {
-	DatabaseUniqueViolationError,
-	RecordNotFoundError,
-	CsvParsingError,
-	ValidationError
+  DatabaseUniqueViolationError,
+  RecordNotFoundError,
+  CsvParsingError,
+  ValidationError,
 };

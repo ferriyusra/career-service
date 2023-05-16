@@ -1,8 +1,10 @@
-const config = require("../config");
-const { camelToSnakeCase } = require("./string");
+const config = require('../config');
+const { camelToSnakeCase } = require('./string');
 
 function getPaging(query, searchables) {
-  const { page: pageOri, perPage, sort: sortOri, ...q } = query;
+  const {
+    page: pageOri, perPage, sort: sortOri, ...q
+  } = query;
 
   // set page
   const page = Number(pageOri) || 1;
@@ -15,13 +17,13 @@ function getPaging(query, searchables) {
   if (!sortOri) {
     sort = config.query.sortDefault;
   } else {
-    const sorts = sortOri.split(" ");
+    const sorts = sortOri.split(' ');
     const sortField = sorts[0].trim();
     const sortValue = sorts[1].trim().toLowerCase();
 
     if (
       searchables.includes(sortField) &&
-      (sortValue === "asc" || sortValue === "desc")
+      (sortValue === 'asc' || sortValue === 'desc')
     ) {
       const sortFieldSnakeCase = camelToSnakeCase(sortField);
       sort = `${sortFieldSnakeCase} ${sortValue}`;
@@ -43,7 +45,7 @@ function getPaging(query, searchables) {
         const fieldName = camelToSnakeCase(k);
 
         // if it's primitive, v must have a value
-        if (typeof v !== "object" && v) {
+        if (typeof v !== 'object' && v) {
           search[fieldName] = v;
         } else if (v.like) {
           search[fieldName] = v;

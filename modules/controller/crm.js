@@ -1,9 +1,9 @@
 const { EventEmitter } = require('events');
+const { v4: uuidv4 } = require('uuid');
+const { DateTime } = require('luxon');
 const { paginate } = require('../../util/paginate');
 const { getPaging } = require('../../util/paging');
 const { getJobSearchable } = require('../job/searchable');
-const { v4: uuidv4 } = require('uuid');
-const { DateTime } = require('luxon');
 const { ValidationError } = require('../../error');
 
 const messageConstant = require('../../config/messageConstant');
@@ -47,7 +47,9 @@ class CrmController extends EventEmitter {
 
   async createJob(req, res, next) {
     try {
-      const { name, periodFromAt, periodToAt, description, salary, jobType, isSalary } = req.body;
+      const {
+        name, periodFromAt, periodToAt, description, salary, jobType, isSalary,
+      } = req.body;
       const companyId = req.user.id;
 
       const periodFromAtOri = periodFromAt;
@@ -70,7 +72,7 @@ class CrmController extends EventEmitter {
         description,
         salary,
         isSalary,
-        jobType
+        jobType,
       });
 
       res.success(toJobContract(job));
@@ -81,12 +83,13 @@ class CrmController extends EventEmitter {
 
   async updateJob(req, res, next) {
     try {
-      const { name, periodFromAt, periodToAt, description, salary, jobType, isSalary } = req.body;
+      const {
+        name, periodFromAt, periodToAt, description, salary, jobType, isSalary,
+      } = req.body;
       const { id } = req.params;
 
       // get job
       const job = await this.jobService.getJob(id);
-      if (!job) throw createError(StatusCodes.NOT_FOUND, messageConstant.JOB_NOT_FOUND);
 
       const periodFromAtOri = periodFromAt;
       const periodToAtOri = periodToAt;
@@ -108,8 +111,8 @@ class CrmController extends EventEmitter {
           description,
           salary,
           isSalary,
-          jobType
-        }
+          jobType,
+        },
       );
 
       res.success(toJobContract(updatedJob));
@@ -139,7 +142,7 @@ function toJobContract(data) {
     jobPeriodFrom: data.jobPeriodFrom,
     jobPeriodTo: data.jobPeriodTo,
     jobDescription: data.jobDescription,
-    jobSalary: parseInt(data.jobSalary),
+    jobSalary: parseInt(data.jobSalary, 10),
     jobIsSalary: data.jobIsSalary,
     jobType: data.jobType,
     companyName: data.companyName,

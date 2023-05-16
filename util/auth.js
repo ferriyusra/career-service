@@ -52,17 +52,17 @@ class Auth {
         try {
             return jwt.verify(token, process.env.AUTH_JWT_SECRET_CRM || process.env.TOKEN_KEY_CRM);
         } catch (e) {
-            console.log(e);
+            return e;
         }
     }
 
     async generatePassword(plainText) {
-        const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS || 10));
-        return await bcrypt.hash(plainText.toString(), salt);
+        const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS || 10, 10));
+        return bcrypt.hash(plainText.toString(), salt);
     }
 
     async validatePassword(plainText, hash) {
-        return await bcrypt.compare(plainText.toString(), hash.toString());
+        return bcrypt.compare(plainText.toString(), hash.toString());
     }
 }
 

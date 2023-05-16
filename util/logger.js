@@ -1,9 +1,9 @@
-const httpContext = require("express-http-context");
-const _ = require("lodash");
-const { DateTime } = require("luxon");
-const { createLogger, format, transports } = require("winston");
+const httpContext = require('express-http-context');
+const _ = require('lodash');
+const { DateTime } = require('luxon');
+const { createLogger, format, transports } = require('winston');
 
-const config = require("../config");
+const config = require('../config');
 
 class Logger {
   constructor() {
@@ -17,23 +17,21 @@ class Logger {
             message += ` | ${config.app.name} `;
 
             // append request id
-            message += httpContext.get("requestId")
-              ? `| ${httpContext.get("requestId")}`
-              : "| -";
+            message += httpContext.get('requestId')
+              ? `| ${httpContext.get('requestId')}`
+              : '| -';
 
             // append message
             message += ` | ${info.level} | ${info.message}`;
 
             // append object
             if (info.obj !== undefined) {
-              if (info.level !== "error") {
+              if (info.level !== 'error') {
                 message += ` | ${JSON.stringify(info.obj)}`;
+              } else if (_.get(info, 'obj.stack')) {
+                message += ` | ${JSON.stringify(info.obj.stack)}`;
               } else {
-                if (_.get(info, "obj.stack")) {
-                  message += ` | ${JSON.stringify(info.obj.stack)}`;
-                } else {
-                  message += ` | ${JSON.stringify(info.obj)}`;
-                }
+                message += ` | ${JSON.stringify(info.obj)}`;
               }
             }
 
@@ -48,15 +46,15 @@ class Logger {
 
   info(message, obj) {
     let o;
-    if (config.app.env !== "test") {
-      if (typeof obj === "string") {
+    if (config.app.env !== 'test') {
+      if (typeof obj === 'string') {
         // remove multiple spaces and line breaks
-        o = obj.replace(/ +(?= )/g, "").replace(/(\r\n|\n|\r)/gm, "");
+        o = obj.replace(/ +(?= )/g, '').replace(/(\r\n|\n|\r)/gm, '');
       } else {
         o = obj;
       }
 
-      this.logger.log("info", message, {
+      this.logger.log('info', message, {
         obj: o,
       });
     }
@@ -64,20 +62,20 @@ class Logger {
 
   error(message, obj) {
     let o;
-    if (typeof obj === "string") {
+    if (typeof obj === 'string') {
       // remove multiple spaces and line breaks
-      o = obj.replace(/ +(?= )/g, "").replace(/(\r\n|\n|\r)/gm, "");
+      o = obj.replace(/ +(?= )/g, '').replace(/(\r\n|\n|\r)/gm, '');
     } else {
       o = obj;
     }
 
-    this.logger.log("error", message, {
+    this.logger.log('error', message, {
       obj: o,
     });
   }
 
   warn(message, obj) {
-    this.logger.log("warn", message, {
+    this.logger.log('warn', message, {
       obj,
     });
   }
