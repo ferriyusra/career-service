@@ -67,7 +67,7 @@ class AuthController extends EventEmitter {
             name,
             email,
             location,
-            company_description: companyDescription,
+            companyDescription,
             password: hashPassword,
             image: filename,
           });
