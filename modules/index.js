@@ -5,9 +5,11 @@ const AccountController = require('./controller/account');
 
 const JobRepository = require('./job/repository');
 const UserRepository = require('./user/repository');
+const ApplicantRepository = require('./applicant/repository');
 
 const JobService = require('./job/service');
 const UserService = require('./user/service');
+const ApplicationService = require('./applicant/service');
 
 function createAuthController(userService) {
   return new AuthController(userService);
@@ -17,8 +19,8 @@ function createCrmController(jobService) {
   return new CrmController(jobService);
 }
 
-function createCareerController(jobService) {
-  return new CareerController(jobService);
+function createCareerController(jobService, applicantService) {
+  return new CareerController(jobService, applicantService);
 }
 
 function createAccountController(userService) {
@@ -33,8 +35,16 @@ function createUserRepository(db) {
   return new UserRepository(db);
 }
 
+function createApplicantRepository(db) {
+  return new ApplicantRepository(db);
+}
+
 function createJobService(repo) {
   return new JobService(repo);
+}
+
+function createApplicantService(repo) {
+  return new ApplicationService(repo);
 }
 
 function createUserService(repo) {
@@ -49,7 +59,9 @@ module.exports = {
 
   createJobRepository,
   createUserRepository,
+  createApplicantRepository,
 
   createJobService,
   createUserService,
+  createApplicantService,
 };

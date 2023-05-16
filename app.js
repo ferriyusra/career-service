@@ -26,9 +26,11 @@ const {
 
   createJobRepository,
   createUserRepository,
+  createApplicantRepository,
 
   createJobService,
   createUserService,
+  createApplicantService,
 } = require('./modules');
 
 const crmRouter = require('./routes/crm');
@@ -87,13 +89,15 @@ async function main() {
   logger.info('Initializing dependencies');
   const jobRepository = createJobRepository(db);
   const userRepository = createUserRepository(db);
+  const applicantRepository = createApplicantRepository(db);
 
   const jobService = createJobService(jobRepository);
   const userService = createUserService(userRepository);
+  const applicantService = createApplicantService(applicantRepository);
 
   const crmController = createCrmController(jobService);
   const authController = createAuthController(userService);
-  const careerController = createCareerController(jobService);
+  const careerController = createCareerController(jobService, applicantService);
   const accountController = createAccountController(userService);
 
   // init observers
