@@ -98,6 +98,8 @@ class CareerController extends EventEmitter {
           const applicant = await this.applicantService.createApplicant({
             id: uuidv4(),
             jobId: job.id,
+            jobName: job.jobName,
+            companyId: job.companyId,
             firstName,
             lastName,
             email,
@@ -141,6 +143,8 @@ function toApplicantContract(data) {
   return {
     id: data.id,
     jobId: data.jobId,
+    jobName: data.jobName,
+    companyId: data.companyId,
     firstName: data.firstName,
     lastName: data.lastName,
     email: data.email,
