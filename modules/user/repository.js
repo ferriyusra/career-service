@@ -34,7 +34,7 @@ class UserRepository {
   }
 
   async getUserCompany(email) {
-    const sql = 'SELECT id, email, image, password, is_company, password, company_description, location, created_at, updated_at FROM users WHERE email=$1 AND is_company = TRUE AND deleted_at IS NULL';
+    const sql = 'SELECT id, name, email, image, password, is_company, password, company_description, location, created_at, updated_at FROM users WHERE email=$1 AND is_company = TRUE AND deleted_at IS NULL';
 
     const value = [email];
 
