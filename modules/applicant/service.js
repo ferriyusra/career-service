@@ -3,6 +3,10 @@ class ApplicantService {
     this.repository = repository;
   }
 
+  async listApplicants(paging) {
+    return this.repository.listApplicants(paging);
+  }
+
   async createApplicant(data) {
     try {
       return this.repository.createApplicant(data);
