@@ -15,8 +15,8 @@ function createAuthController(userService) {
   return new AuthController(userService);
 }
 
-function createCrmController(jobService) {
-  return new CrmController(jobService);
+function createCrmController(jobService, applicantService) {
+  return new CrmController(jobService, applicantService);
 }
 
 function createCareerController(jobService, applicantService) {
