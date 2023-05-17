@@ -95,7 +95,7 @@ async function main() {
   const userService = createUserService(userRepository);
   const applicantService = createApplicantService(applicantRepository);
 
-  const crmController = createCrmController(jobService);
+  const crmController = createCrmController(jobService, applicantService);
   const authController = createAuthController(userService);
   const careerController = createCareerController(jobService, applicantService);
   const accountController = createAccountController(userService);
