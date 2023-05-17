@@ -9,6 +9,13 @@ module.exports = {
       job_id: {
         type: Sequelize.UUID,
       },
+      job_name: {
+        type: Sequelize.TEXT,
+      },
+      company_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       first_name: {
         type: Sequelize.TEXT,
       },
