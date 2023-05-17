@@ -4,14 +4,16 @@ const { DateTime } = require('luxon');
 const { paginate } = require('../../util/paginate');
 const { getPaging } = require('../../util/paging');
 const { getJobSearchable } = require('../job/searchable');
+const { getApplicantSearchable } = require('../applicant/searchable');
 const { ValidationError } = require('../../error');
 
 const messageConstant = require('../../config/messageConstant');
 
 class CrmController extends EventEmitter {
-  constructor(jobService) {
+  constructor(jobService, applicantService) {
     super();
 
+    this.applicantService = applicantService;
     this.jobService = jobService;
   }
 
@@ -132,6 +134,23 @@ class CrmController extends EventEmitter {
       next(error);
     }
   }
+
+  async listApplicants(req, res, next) {
+    try {
+      const { query } = req;
+      const companyId = req.user.id;
+
+      const paging = getPaging({ ...query, companyId }, getApplicantSearchable());
+
+      const applicants = await this.applicantService.listApplicants(paging);
+
+      const data = applicants.rows.map((applicant) => toApplicantContract(applicant));
+
+      res.success(paginate(data, applicants.count, paging));
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 function toJobContract(data) {
@@ -152,6 +171,23 @@ function toJobContract(data) {
     updatedAt: data.updatedAt,
   };
   return object;
+}
+
+function toApplicantContract(data) {
+  return {
+    id: data.id,
+    jobId: data.jobId,
+    jobName: data.jobName,
+    companyId: data.companyId,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    phoneNumber: data.phoneNumber,
+    resume: data.resume,
+    status: data.status,
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+  };
 }
 
 module.exports = CrmController;
