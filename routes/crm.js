@@ -18,5 +18,8 @@ module.exports = (crmController) => {
   router.delete('/v1/job/:id', crmAuthenticated, getJobRules(), validate, (req, res, next) => crmController.deleteJob(req, res, next));
   router.get('/v1/jobs', crmAuthenticated, (req, res, next) => crmController.listJobs(req, res, next));
 
+  // applicants router
+  router.get('/v1/applicants', crmAuthenticated, (req, res, next) => crmController.listApplicants(req, res, next));
+
   return router;
 };
