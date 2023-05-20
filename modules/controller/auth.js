@@ -88,6 +88,13 @@ class AuthController extends EventEmitter {
       const { email, password } = req.body;
 
       const user = await this.userService.getUserCompany(email);
+      if (!user) {
+        throw createError(
+          StatusCodes.BAD_REQUEST,
+          messageConstant.FAILED_LOGIN,
+        );
+      }
+
       const getPassword = user.password;
 
       const validatePassword = await Auth.validatePassword(password, getPassword);
@@ -95,13 +102,6 @@ class AuthController extends EventEmitter {
         throw createError(
           StatusCodes.BAD_REQUEST,
           messageConstant.INCORRECT_PASSWORD,
-        );
-      }
-
-      if (!user) {
-        throw createError(
-          StatusCodes.BAD_REQUEST,
-          messageConstant.FAILED_LOGIN,
         );
       }
 
