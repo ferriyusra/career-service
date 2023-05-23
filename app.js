@@ -8,6 +8,7 @@ const httpContext = require('express-http-context');
 const helmet = require('helmet');
 const createError = require('http-errors');
 const morgan = require('morgan');
+const path = require('path');
 
 const config = require('./config');
 const { createDatabase } = require('./db');
@@ -47,6 +48,7 @@ const app = express();
 async function main() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(helmet());
   app.use(cors());
   app.use(compression());
