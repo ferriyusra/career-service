@@ -10,7 +10,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      name: {
+      job_name: {
         allowNull: false,
         type: Sequelize.TEXT,
       },
