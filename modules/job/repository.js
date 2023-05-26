@@ -66,7 +66,7 @@ class JobRepository {
     const sql = `SELECT
                     j.id,
                     j.company_id,
-                    j.name,
+                    j.job_name,
                     lower(j.period) AS period_from_at,
                     upper(j.period) AS period_to_at,
                     j.description,
