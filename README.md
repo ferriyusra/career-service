@@ -6,6 +6,8 @@ This microservice serves API requests for Career Site.
 
 ## Documentation
 
+[Postman][https://www.postman.com/satellite-specialist-92838684/workspace/showcase-workspace/collection/26492214-a63a2685-01e6-4204-81d1-10e8722a0063]
+
 ## Requirements
 
 This project is developed with:
