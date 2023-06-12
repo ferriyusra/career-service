@@ -33,7 +33,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.TEXT,
-        defaultValue: 'proses',
+        defaultValue: 'process',
       },
       created_at: {
         allowNull: false,
