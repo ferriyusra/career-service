@@ -107,7 +107,7 @@ class CrmController extends EventEmitter {
       const updatedJob = await this.jobService.updateJob(
         job.id,
         {
-          name,
+          jobName: name,
           periodFromAt: periodFrom,
           periodToAt: periodTo,
           description,
